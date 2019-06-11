@@ -2,7 +2,7 @@
   "name": "subhub",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dataforest-ai.github.io/stubhubfront/",
+  "homepage": "https://sergeybilotil.github.io/subhubfront/",
   "dependencies": {
     "@date-io/moment": "^1.3.6",
     "@material-ui/core": "^4.0.2",
