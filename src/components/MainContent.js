@@ -17,7 +17,8 @@ class MainContent extends React.Component {
       data: []
     };
   }
- getData = async () => {
+ getData = async (e) => {
+   e.preventDefault();
     const api_url = await
     fetch(`http://172.110.7.117:5000/events`)
     const item = await api_url.json
@@ -43,35 +44,14 @@ class MainContent extends React.Component {
                   Header: "First Name",
                   accessor: "firstName",
                  
-                  Filter: ({ filter, onChange }) =>
-                  <select
-                    onChange={event => onChange(event.target.value)}
-                    style={{ width: "100%" }}
-                    value={filter ? filter.value : ""}
-                  >
-                    <option value="">All Name</option>
-                    <option value=">potato">potato</option>
-                    <option value="school">school</option>
-                    <option value="flowers">flowers</option>
-                    <option value="paint">paint</option>
-                    <option value="wife">wife</option>
-                    <option value="bfarm">farm</option>
-                  </select>
+                 
+                 
                 },
                 {
                   Header: "Last Name",
                   id: "lastName",
                   accessor: d => d.lastName,
-                  Filter: ({ filter, onChange }) =>
-                  <select
-                    onChange={event => onChange(event.target.value)}
-                    style={{ width: "100%" }}
-                    value={filter ? filter.value : ""}
-                  >
-                    <option value="">All Last Name</option>
-                    <option value="cloud">cloud</option>
-                    <option value="fcork">cork</option>
-                  </select>
+                  
                 }
               ]
             },
