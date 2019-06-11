@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6e7b57b591cce8f4dca08bb95b02340e",
+    "revision": "60cf9fc0a636e5c58bc2df44b8124c78",
     "url": "/subhubfront/index.html"
   },
   {
-    "revision": "835154dea04144eb250d",
-    "url": "/subhubfront/static/css/2.7de05725.chunk.css"
+    "revision": "961bef5b73b341345003",
+    "url": "/subhubfront/static/css/2.c3d1c642.chunk.css"
   },
   {
-    "revision": "6df0af25b3260a141686",
-    "url": "/subhubfront/static/css/main.1977a4b9.chunk.css"
+    "revision": "c035ed2b141ffd020b1b",
+    "url": "/subhubfront/static/css/main.15444550.chunk.css"
   },
   {
-    "revision": "835154dea04144eb250d",
-    "url": "/subhubfront/static/js/2.f2c48ebe.chunk.js"
+    "revision": "961bef5b73b341345003",
+    "url": "/subhubfront/static/js/2.772fc7fd.chunk.js"
   },
   {
-    "revision": "6df0af25b3260a141686",
-    "url": "/subhubfront/static/js/main.da8c267c.chunk.js"
+    "revision": "c035ed2b141ffd020b1b",
+    "url": "/subhubfront/static/js/main.07df8c0e.chunk.js"
   },
   {
     "revision": "f2a64867b7c4d43084b1",
