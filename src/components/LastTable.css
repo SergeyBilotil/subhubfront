@@ -1,0 +1,26 @@
+.last-table {
+    display: flex;
+    justify-content: center;
+    background: #3D2F95;
+    color: #fff;
+    padding: 20px;
+}
+.last-table .wrapper {
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+}
+.last-table .wrapper .MuiFormControl-root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.last-table .wrapper .MuiFormControl-root input {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+.last-table .wrapper  .MuiInput-formControl {
+    margin-top: 0;
+    margin-left: 15px;
+   
+}

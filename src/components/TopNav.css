@@ -1,0 +1,15 @@
+.MuiTabs-flexContainer {
+    background: #7d0e7a;
+}
+.MuiTabs-flexContainer button {
+    color: #fff;
+}
+.MuiTab-textColorPrimary.Mui-selected {
+    color: #fff !important;
+}
+.PrivateTabIndicator-colorPrimary-60 {
+    background-color: #ffffff !important;
+}
+.MuiTabs-flexContainer button {
+    color: #f0a9ea;
+}

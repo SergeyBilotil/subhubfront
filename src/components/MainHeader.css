@@ -1,0 +1,39 @@
+.main-header {
+    
+    background: #3D2F95;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+.wrapper {
+    width: 100%;
+    max-width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.MuiIcon-root {
+    font-size: 1rem !important;
+    margin-left: 5px;
+}
+.main-header input, .main-header select {
+    color: #fff;
+   border-bottom: 2px solid #fff;
+}
+
+.main-header select  option {
+    color: #000;
+}
+.main-header label {
+    color: #fff;
+}
+.MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid #fff !important;
+}
+.MuiSvgIcon-root {
+    color: #fff
+}
+.MuiNativeSelect-icon {
+    color: #fff !important;
+}
