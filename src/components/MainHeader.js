@@ -39,7 +39,7 @@ class MainHeader extends Component {
   return (
       <div className="main-header">
           <div className="wrapper">
-           <form onSubmit={this.props.getData}>
+          
     <MuiPickersUtilsProvider utils={MomentUtils}>
     <KeyboardDatePicker
         autoOk
@@ -96,7 +96,7 @@ class MainHeader extends Component {
        
         <Icon className="rightIcon"> send</Icon>
                 </Button>
-                </form>
+             
   </div>
   </div>
   );

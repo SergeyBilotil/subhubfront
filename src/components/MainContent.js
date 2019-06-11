@@ -1,12 +1,8 @@
 import React from "react";
-import { render } from "react-dom";
-import { makeData, Logo, Tips } from "./Utils";
-import matchSorter from 'match-sorter'
 import MainHeader from './MainHeader';
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-
+import "./MainContent.css"
 class MainContent extends React.Component {
   constructor() {
     super();
@@ -17,78 +13,101 @@ class MainContent extends React.Component {
       data: []
     };
   }
- getData = async (e) => {
-   e.preventDefault();
-    const api_url = await
-    fetch(`http://172.110.7.117:5000/events`)
-    const item = await api_url.json
-    console.log(item)
+  componentDidMount  = async (e) => {
+  
+   
+  
+     fetch('http://172.110.7.117:5000/events')
+    .then(res => res.json())
+    .then(
+      (result) => {
+        console.log(result);
+        this.setState({data: result});
+      });
+ 
   }
   
   render() {
-    const { items } = this.state;
-
+    const { data } = this.state;
+    console.log(data)
+    
     return (
       <div>
         <MainHeader getData={this.getData}/>
-        <ReactTable
-          data={items}
+        <ReactTable 
+          data={data}
           
-          defaultFilterMethod={(filter, row) =>
-            String(row[filter.id]) === filter.value}
+         
           columns={[
             {
              
               columns: [
                 {
-                  Header: "First Name",
-                  accessor: "firstName",
-                 
+                  Header: "City",
+                  accessor: "City",
+                  
                  
                  
                 },
                 {
-                  Header: "Last Name",
-                  id: "lastName",
-                  accessor: d => d.lastName,
+                  Header: "Date",
                   
-                }
+                  accessor: "Date",
+                  
+                },
+                {
+                  Header: "Name", 
+                  accessor: "Name",
+                  minWidth: 200,
+                  
+                },
+                {
+                  Header: "Performers", 
+                  accessor: "Performers[0]",
+                  
+                },
+                {
+                  Header: "Status", 
+                  accessor: "Status",
+                  
+                },
+                {
+                  Header: "Venue", 
+                  accessor: "Venue",
+                  
+                },
+                {
+                  Header: "Currency Code", 
+                  accessor: "currencyCode",
+                  width: 150
+                  
+                },
+
+                {
+                  Header: "Max Price", 
+                  accessor: "maxPrice",
+                  width: 100
+                  
+                },
+                {
+                  Header: "Min Price", 
+                  accessor: "minPrice",
+                  width: 100
+                  
+                },
+                {
+                  Header: "Total Tickets", 
+                  accessor: "totalTickets",
+                  width: 100
+                  
+                },
+                
+                
+
               ]
             },
-            {
-              
-              columns: [
-                {
-                  Header: "Age",
-                  accessor: "age"
-                },
-                {
-                  Header: "Over 21",
-                  accessor: "age",
-                  id: "over",
-                  Cell: ({ value }) => (value >= 21 ? "Yes" : "No"),
-                  filterMethod: (filter, row) => {
-                    if (filter.value === "all") {
-                      return true;
-                    }
-                    if (filter.value === "true") {
-                      return row[filter.id] >= 21;
-                    }
-                    return row[filter.id] < 21;
-                  },
-                  Filter: ({ filter, onChange }) =>
-                    <select
-                      onChange={event => onChange(event.target.value)}
-                      style={{ width: "100%" }}
-                      value={filter ? filter.value : "all"}
-                    >
-                      <option value="all">Show All</option>
-                      <option value="true">Can Drink</option>
-                      <option value="false">Can't Drink</option>
-                    </select>
-                }
-              ]
-            }
+            
+            
           ]}
           defaultPageSize={10}
           className="-striped -highlight"
