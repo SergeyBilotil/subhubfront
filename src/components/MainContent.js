@@ -1,5 +1,4 @@
 import React from "react";
-import MainHeader from './MainHeader';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import "./MainContent.css"
@@ -13,28 +12,41 @@ class MainContent extends React.Component {
       data: []
     };
   }
-  componentDidMount  = async (e) => {
-  
+
+  loadData() {
+   
+    const setCity = this.props.city
+    const setVenue = this.props.venue
+
+    console.log(setCity, setVenue)
     
-  
-     fetch('https://stubhub.dataforest.tech/events')
+     
+    
+     fetch(`https://stubhub.dataforest.tech/events`)
     .then(res => res.json())
     .then(
       (result) => {
-        console.log(result);
-        this.setState({data: result});
+        
+        this.setState({
+          data: result,
+        
+        });
+        console.log(result)
       });
- 
+    
   }
+  
   
   render() {
     const { data } = this.state;
-    console.log(data)
+    
     
     return (
-      <div>
-        <MainHeader getData={this.componentDidMount}/>
-        <ReactTable 
+      <div >
+       
+        <ReactTable
+          
+     
           data={data}
           
          
@@ -53,6 +65,12 @@ class MainContent extends React.Component {
                   Header: "Date",
                   
                   accessor: "Date",
+                  
+                },
+                {
+                  Header: "Time",
+                  
+                  accessor: "Time",
                   
                 },
                 {

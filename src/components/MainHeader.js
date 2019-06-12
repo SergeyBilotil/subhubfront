@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import MainContent from "./MainContent";
 
 
 class MainHeader extends Component {
@@ -16,12 +17,46 @@ class MainHeader extends Component {
       this.state = {
         FirstselectedDate: new Date(),
         SecondselecteDate: new Date(),
-        age: '',
-        age1: '',
+        Listcities: [],
+        venues: [],
+        city: '',
+        venue: '',
         name: 'hai',
+      
       }
   }
+  componentWillMount() {
+    fetch(`https://stubhub.dataforest.tech/cities`)
+    .then(res => res.json())
+    .then(
+      (items) => {
+        
+        this.setState({
+          Listcities: items,
+        
+        });
+        
+      });
+    
+  }
+  handleVenueСChange(e) {
+    e.preventDefault()
+   
+    fetch(`https://stubhub.dataforest.tech/venues?city=`)
+    .then(res => res.json())
+    .then(
+      (items2) => {
+        
+        this.setState({
+          venues: items2,
+        
+        });
+        console.log(items2)
+      });
+    
+  }
   handleDateChange = (selectedDate,SecondselecteDate) => date=> {
+   
     this.setState({
       [selectedDate]: date,
       [SecondselecteDate]: date
@@ -29,22 +64,28 @@ class MainHeader extends Component {
   }
 
    handleChange = name => event => {
+    
     this.setState({
       
-      age: '',
-      age1: '',
+      city: '',
+      venue: '',
       [name]: event.target.value,
     });
   };
   render() {
-    const { data } = this.state;
-    
+  
+  const Listcities = this.state.Listcities
+  const ListVenue = this.state.venue
+  console.log(ListVenue)
+  
   return (
     
+    <div className="main-content">
       <div className="main-header">
           <div className="wrapper">
-          
-    <MuiPickersUtilsProvider utils={MomentUtils}>
+            
+          <form onSubmi={this.handleVenueСChange}>
+    <MuiPickersUtilsProvider utils={MomentUtils} >
     <KeyboardDatePicker
         autoOk
         variant="inline"
@@ -63,32 +104,37 @@ class MainHeader extends Component {
         onChange={this.handleDateChange('SecondselecteDate')}
       />
   </MuiPickersUtilsProvider>
-  <FormControl className="">
+  <FormControl className="" >
         <InputLabel shrink htmlFor="age-native-label-placeholder">
-          Location
+          City
         </InputLabel>
         <NativeSelect
+          name="city"
           value={this.state.age}
-          onChange={this.handleChange('age')}
+          onChange={this.handleChange('city')}
           input={<Input name="age" id="age-native-label-placeholder" />}
         >
-          <option value="">All </option>
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          {Listcities.map(item => (
+                <option key={item}>
+                  {item}
+                </option>
+              ))}
         </NativeSelect>
         
       </FormControl>
       <FormControl className="Location">
         <InputLabel shrink htmlFor="age-native-label-placeholder">
-          Location2
+          Venue
         </InputLabel>
         <NativeSelect
           value={this.state.age1}
-          onChange={this.handleChange('age1')}
+          onChange={this.handleChange('venue')}
           input={<Input name="age1" id="age-native-label-placeholder" />}
         >
-         
+          <option value="">All </option>
+          <option value="Stadio Olimpico">Stadio Olimpico</option>
+          <option value="York Lions Stadium">York Lions Stadium</option>
+          <option value="Hungaroring">Hungaroring</option>
         </NativeSelect>
         
       </FormControl>
@@ -97,8 +143,12 @@ class MainHeader extends Component {
        
         <Icon className="rightIcon"> send</Icon>
                 </Button>
+      </form>
              
   </div>
+   
+  </div>
+  <MainContent city={this.state.city} venue={this.state.venue}/>
   </div>
   );
 }
