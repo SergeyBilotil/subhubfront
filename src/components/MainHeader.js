@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import './MainHeader.css'
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
@@ -14,16 +14,17 @@ class MainHeader extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        selectedDate: new Date("2018-01-01T00:00:00.000Z"),
-       
+        FirstselectedDate: new Date(),
+        SecondselecteDate: new Date(),
         age: '',
         age1: '',
         name: 'hai',
       }
   }
-  handleDateChange = selectedDate => event=> {
+  handleDateChange = (selectedDate,SecondselecteDate) => date=> {
     this.setState({
-      [selectedDate]: new Date(),
+      [selectedDate]: date,
+      [SecondselecteDate]: date
     })
   }
 
@@ -36,7 +37,10 @@ class MainHeader extends Component {
     });
   };
   render() {
+    const { data } = this.state;
+    
   return (
+    
       <div className="main-header">
           <div className="wrapper">
           
@@ -55,8 +59,8 @@ class MainHeader extends Component {
         variant="inline"
         label="Date to"
         format="MM/DD/YYYY"
-        value={this.state.selectedDate}
-        onChange={this.handleDateChange('selectedDate')}
+        value={this.state.SecondselecteDate}
+        onChange={this.handleDateChange('SecondselecteDate')}
       />
   </MuiPickersUtilsProvider>
   <FormControl className="">
@@ -84,10 +88,7 @@ class MainHeader extends Component {
           onChange={this.handleChange('age1')}
           input={<Input name="age1" id="age-native-label-placeholder" />}
         >
-          <option value="">All </option>
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+         
         </NativeSelect>
         
       </FormControl>

@@ -8,7 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Main from './Main';
-import LastTable from './LastTable';
+import LastItem from './LastItem';
 
 function TabContainer({ children, dir }) {
     return (
@@ -70,7 +70,7 @@ class TopNav extends Component {
             >
               <TabContainer dir={this.state.theme.direction}><Main /></TabContainer>
               <TabContainer dir={this.state.theme.direction}></TabContainer>
-              <TabContainer dir={this.state.theme.direction}><LastTable /></TabContainer>
+              <TabContainer dir={this.state.theme.direction}><LastItem /></TabContainer>
             </SwipeableViews>
           </div>
         );

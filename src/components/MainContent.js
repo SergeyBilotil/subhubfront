@@ -15,9 +15,9 @@ class MainContent extends React.Component {
   }
   componentDidMount  = async (e) => {
   
-   
+    
   
-     fetch('http://172.110.7.117:5000/events')
+     fetch('https://stubhub.dataforest.tech/events')
     .then(res => res.json())
     .then(
       (result) => {
@@ -33,7 +33,7 @@ class MainContent extends React.Component {
     
     return (
       <div>
-        <MainHeader getData={this.getData}/>
+        <MainHeader getData={this.componentDidMount}/>
         <ReactTable 
           data={data}
           
