@@ -15,17 +15,18 @@ class MainHeader extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        FirstselectedDate: new Date(),
-        SecondselecteDate: new Date(),
+        FirstselectedDate: new Date("2000-01-01"),
+        SecondselecteDate: new Date("2050-01-01"),
         Listcities: [],
-        venues: [],
+        ListVenues: [],
         city: '',
         venue: '',
         name: 'hai',
       
       }
   }
-  componentWillMount() {
+  componentDidMount() {
+    
     fetch(`https://stubhub.dataforest.tech/cities`)
     .then(res => res.json())
     .then(
@@ -39,44 +40,57 @@ class MainHeader extends Component {
       });
     
   }
-  handleVenueСChange(e) {
-    e.preventDefault()
-   
-    fetch(`https://stubhub.dataforest.tech/venues?city=`)
+  
+  componentDidUpdate(prevState ) {
+  
+    const cityname = this.state.city
+    if (this.state.city ) {
+    fetch(`https://stubhub.dataforest.tech/venues?city=${cityname}`)
     .then(res => res.json())
     .then(
       (items2) => {
         
         this.setState({
-          venues: items2,
+          ListVenues: items2,
         
         });
-        console.log(items2)
+        
       });
-    
+    }
   }
-  handleDateChange = (selectedDate,SecondselecteDate) => date=> {
+  handleDateChange = (FirstselectedDate,SecondselecteDate) => date=> {
    
     this.setState({
-      [selectedDate]: date,
-      [SecondselecteDate]: date
+      [FirstselectedDate]: date.format( "MM-DD-YYYY"),
+      [SecondselecteDate]: date.format( "MM-DD-YYYY")
     })
   }
+  handleChangeVenu = name => event => { 
+    this.setState({
+      
+     
+      venue: '',
+      [name]: event.target.value,
+    });
+
+  };
+
+
 
    handleChange = name => event => {
     
     this.setState({
       
       city: '',
-      venue: '',
+      
       [name]: event.target.value,
     });
   };
   render() {
   
   const Listcities = this.state.Listcities
-  const ListVenue = this.state.venue
-  console.log(ListVenue)
+  const ListVenues = this.state.ListVenues
+  
   
   return (
     
@@ -84,22 +98,24 @@ class MainHeader extends Component {
       <div className="main-header">
           <div className="wrapper">
             
-          <form onSubmi={this.handleVenueСChange}>
+          <form onSubmit={this.props.LoadMainData}>
     <MuiPickersUtilsProvider utils={MomentUtils} >
     <KeyboardDatePicker
         autoOk
+        name="startdate"
         variant="inline"
         label="Date from"
-        format="MM/DD/YYYY"
-        value={this.state.selectedDate}
-        onChange={this.handleDateChange('selectedDate')}
+        format="MM-DD-YYYY"
+        value={this.state.FirstselectedDate}
+        onChange={this.handleDateChange('FirstselectedDate')}
       />
 
 <KeyboardDatePicker
         autoOk
+        name="enddate"
         variant="inline"
         label="Date to"
-        format="MM/DD/YYYY"
+        format="MM-DD-YYYY"
         value={this.state.SecondselecteDate}
         onChange={this.handleDateChange('SecondselecteDate')}
       />
@@ -110,10 +126,11 @@ class MainHeader extends Component {
         </InputLabel>
         <NativeSelect
           name="city"
-          value={this.state.age}
+          value={this.state.city}
           onChange={this.handleChange('city')}
-          input={<Input name="age" id="age-native-label-placeholder" />}
+          input={<Input name="city" id="age-native-label-placeholder" />}
         >
+          <option>Change city</option>
           {Listcities.map(item => (
                 <option key={item}>
                   {item}
@@ -127,18 +144,21 @@ class MainHeader extends Component {
           Venue
         </InputLabel>
         <NativeSelect
-          value={this.state.age1}
-          onChange={this.handleChange('venue')}
-          input={<Input name="age1" id="age-native-label-placeholder" />}
+          name="venue"
+          value={this.state.venue}
+          onChange={this.handleChangeVenu('venue')}
+          input={<Input name="venue" id="age-native-label-placeholder" />}
         >
-          <option value="">All </option>
-          <option value="Stadio Olimpico">Stadio Olimpico</option>
-          <option value="York Lions Stadium">York Lions Stadium</option>
-          <option value="Hungaroring">Hungaroring</option>
+          <option>Change venue</option>
+          {ListVenues.map(item => (
+                <option key={item.name}>
+                  {item.name}
+                </option>
+              ))}
         </NativeSelect>
         
       </FormControl>
-      <Button variant="contained" type="submit" color="primary" className="button">
+      <Button  type="submit" variant="contained" color="primary" className="button">
         Apply
        
         <Icon className="rightIcon"> send</Icon>
@@ -148,7 +168,7 @@ class MainHeader extends Component {
   </div>
    
   </div>
-  <MainContent city={this.state.city} venue={this.state.venue}/>
+  
   </div>
   );
 }

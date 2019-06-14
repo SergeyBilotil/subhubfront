@@ -1,40 +1,50 @@
-import React from "react";
+import React, { Component } from 'react'
 import MainHeader from './MainHeader';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import "./MainContent.css";
-import LastTable from "./LastTable"
-class MainContent extends React.Component {
+import LastTable from './LastTable';
+
+
+class LastItem extends Component {
   constructor() {
     super();
     this.state = {
       error: null,
       city: '',
       venue: '',
+      Listcities: '',
       data: []
     };
+    this.LoadData = this.LoadData.bind(this);
   }
-  componentDidMount  = async (e) => {
-  
+  LoadData (e) {
+    e.preventDefault()
+    let Lastchangevenu = e.target.lastvenue.value
     
-  
-     fetch('')
+    
+    
+    console.log(Lastchangevenu )
+    fetch(`https://stubhub.dataforest.tech/parse?venue=${Lastchangevenu}`)
     .then(res => res.json())
     .then(
-      (result) => {
-        console.log(result);
-        this.setState({data: result});
+      (data) => {
+        
+        this.setState({
+          data: data,
+        
+        });
+        
       });
- 
+    
   }
   
   render() {
     const { data } = this.state;
-    console.log(data)
     
+    console.log(data)
     return (
       <div>
-        <LastTable />
+        <LastTable  LoadData={this.LoadData}/>
         <ReactTable 
           data={data}
           
@@ -120,4 +130,4 @@ class MainContent extends React.Component {
   }
 }
 
-export default MainContent
+export default LastItem
