@@ -10,25 +10,43 @@ class LastTable extends Component {
     constructor(props) {
         super(props);
           this.state = {
-          lastListVenues: [],
+            Listcities: [],
           eventId: '',
-          lastvenue: ''
+          lastvenue: '',
+          ListVenues: []
           }
       }
       componentDidMount() {
   
-        fetch(`https://stubhub.dataforest.tech/venues`)
+        fetch(`https://stubhub.dataforest.tech/cities`)
         .then(res => res.json())
         .then(
-          (items2) => {
+          (items) => {
             
             this.setState({
-              lastListVenues: items2,
+              Listcities: items,
             
             });
             
           });
         
+      }
+      componentDidUpdate(prevState ) {
+  
+        const cityname = this.state.lastvenue
+        if (this.state.lastvenue ) {
+        fetch(`https://stubhub.dataforest.tech/venues?city=${cityname}`)
+        .then(res => res.json())
+        .then(
+          (items2) => {
+            
+            this.setState({
+              ListVenues: items2,
+            
+            });
+            
+          });
+        }
       }
       handleChange = name => event => {
     
@@ -39,26 +57,51 @@ class LastTable extends Component {
           [name]: event.target.value,
         });
       };
+      handleChangeVenu = name => event => { 
+        this.setState({
+          
+         
+          venue: '',
+          [name]: event.target.value,
+        });
+    
+      };
     render() {
-      const lastListVenues = this.state.lastListVenues
+      const Listcities= this.state.Listcities
+      const ListVenues = this.state.ListVenues
         return(
             <div >
               <form onSubmit={this.props.LoadData}>
                <div className="last-table">
                 <div className="wrapper"> 
                 <FormControl className="" >
-        <InputLabel shrink htmlFor="age-native-label-placeholder">
-          Select Venue
-        </InputLabel>
+        
         <NativeSelect
           name="lastvenue"
           value={this.state.lastvenue}
           onChange={this.handleChange('lastvenue')}
           input={<Input name="lastvenue" id="age-native-label-placeholder" />}
         >
-          <option>Change city</option>
-          {lastListVenues.map(item => (
+          <option>Select Venue</option>
+          {Listcities.map(item => (
                 <option  >
+                  {item}
+                </option>
+              ))}
+        </NativeSelect>
+        
+      </FormControl>
+      <FormControl className="Location">
+       
+        <NativeSelect
+          name="venue"
+          value={this.state.venue}
+          onChange={this.handleChangeVenu('venue')}
+          input={<Input name="venue" id="age-native-label-placeholder" />}
+        >
+          <option>Change venue</option>
+          {ListVenues.map(item => (
+                <option key={item.name}>
                   {item.name}
                 </option>
               ))}
