@@ -7,8 +7,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Main from './Main';
-import LastItem from './LastItem';
+import Main from '../SecondTab/Main';
+import LastItem from '../Lastitem/LastItem';
+import TaskItem from '../FirstTab/TasksItemHead';
 
 function TabContainer({ children, dir }) {
     return (
@@ -67,9 +68,9 @@ class TopNav extends Component {
               axis={this.state.theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}
-            >
+            > 
+              <TabContainer dir={this.state.theme.direction}><TaskItem /></TabContainer>
               <TabContainer dir={this.state.theme.direction}><Main /></TabContainer>
-              <TabContainer dir={this.state.theme.direction}></TabContainer>
               <TabContainer dir={this.state.theme.direction}><LastItem /></TabContainer>
             </SwipeableViews>
           </div>

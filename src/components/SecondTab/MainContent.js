@@ -27,7 +27,7 @@ class MainContent extends React.Component {
     
      
     
-     fetch(`https://stubhub.dataforest.tech/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`)
+     fetch(`https://stubhub.dataforest.tech/api/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`)
     .then(res => res.json())
     .then(
       (result) => {
@@ -52,9 +52,9 @@ class MainContent extends React.Component {
        <MainHeader LoadMainData={this.LoadMainData}/>
         <ReactTable
           
-     
+         
           data={data}
-          
+         
          
           columns={[
             {
@@ -133,6 +133,8 @@ class MainContent extends React.Component {
             
             
           ]}
+         
+          minRows = {0}
           defaultPageSize={10}
           className="-striped -highlight"
         />

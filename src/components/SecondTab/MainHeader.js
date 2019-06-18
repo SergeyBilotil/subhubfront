@@ -8,15 +8,14 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import MainContent from "./MainContent";
 
 
 class MainHeader extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        FirstselectedDate: new Date("2000-01-01"),
-        SecondselecteDate: new Date("2050-01-01"),
+        FirstselectedDate: null,
+        SecondselecteDate: null,
         Listcities: [],
         ListVenues: [],
         city: '',
@@ -27,7 +26,7 @@ class MainHeader extends Component {
   }
   componentDidMount() {
     
-    fetch(`https://stubhub.dataforest.tech/cities`)
+    fetch(`https://stubhub.dataforest.tech/api/cities`)
     .then(res => res.json())
     .then(
       (items) => {
@@ -45,7 +44,7 @@ class MainHeader extends Component {
   
     const cityname = this.state.city
     if (this.state.city ) {
-    fetch(`https://stubhub.dataforest.tech/venues?city=${cityname}`)
+    fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
     .then(res => res.json())
     .then(
       (items2) => {
@@ -104,6 +103,7 @@ class MainHeader extends Component {
         autoOk
         name="startdate"
         variant="inline"
+        
         label="Date from"
         format="MM-DD-YYYY"
         value={this.state.FirstselectedDate}

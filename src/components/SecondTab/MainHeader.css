@@ -14,9 +14,10 @@
 .wrapper  form {
     width: auto;
    
-    min-width: 70%;
+    min-width: 80%;
   
     display: flex;
+    flex-wrap: wrap;;
     justify-content: space-between;
     align-items: center;
 }
@@ -48,3 +49,14 @@
 .MuiNativeSelect-icon {
     color: #fff !important;
 }
+.MuiPickersCalendarHeader-iconButton > * > * {
+    color: #000;
+}
+@media screen and (max-width: 1400px) {
+    .wrapper  form {
+        width: auto;
+       
+        min-width: 90%;
+    }
+  }
+  @media screen and (max-width: 1220px) 

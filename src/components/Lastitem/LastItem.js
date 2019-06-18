@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MainHeader from './MainHeader';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import LastTable from './LastTable';
@@ -24,7 +23,7 @@ class LastItem extends Component {
     
     
     console.log(Lastchangevenu )
-    fetch(`https://stubhub.dataforest.tech/parse?venue=${Lastchangevenu}`)
+    fetch(`https://stubhub.dataforest.tech/api/parse?venue=${Lastchangevenu}`)
     .then(res => res.json())
     .then(
       (data) => {

@@ -4,7 +4,7 @@ import Input from '@material-ui/core/Input';
 import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import InputLabel from '@material-ui/core/InputLabel';
+
 import NativeSelect from '@material-ui/core/NativeSelect';
 class LastTable extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class LastTable extends Component {
       }
       componentDidMount() {
   
-        fetch(`https://stubhub.dataforest.tech/cities`)
+        fetch(`https://stubhub.dataforest.tech/api/cities`)
         .then(res => res.json())
         .then(
           (items) => {
@@ -35,7 +35,7 @@ class LastTable extends Component {
   
         const cityname = this.state.lastvenue
         if (this.state.lastvenue ) {
-        fetch(`https://stubhub.dataforest.tech/venues?city=${cityname}`)
+        fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
         .then(res => res.json())
         .then(
           (items2) => {
