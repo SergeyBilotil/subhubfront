@@ -31,10 +31,10 @@ class LastTable extends Component {
           });
         
       }
-      componentDidUpdate(prevState ) {
+      componentDidUpdate(prevState ,nextState ) {
   
         const cityname = this.state.lastvenue
-        if (this.state.lastvenue ) {
+        if (this.state.lastvenue !== nextState.lastvenue) {
         fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
         .then(res => res.json())
         .then(
@@ -46,6 +46,7 @@ class LastTable extends Component {
             });
             
           });
+         
         }
       }
       handleChange = name => event => {
@@ -82,7 +83,7 @@ class LastTable extends Component {
           onChange={this.handleChange('lastvenue')}
           input={<Input name="lastvenue" id="age-native-label-placeholder" />}
         >
-          <option>Select Venue</option>
+          <option value="" >All Cities</option>
           {Listcities.map(item => (
                 <option  >
                   {item}
@@ -99,7 +100,7 @@ class LastTable extends Component {
           onChange={this.handleChangeVenu('venue')}
           input={<Input name="venue" id="age-native-label-placeholder" />}
         >
-          <option>Change venue</option>
+          <option>All venue</option>
           {ListVenues.map(item => (
                 <option key={item.name}>
                   {item.name}
@@ -119,7 +120,7 @@ class LastTable extends Component {
                     }}
                 />
                 </FormControl>
-                <Button type="submit" variant="contained" color="primary" className="button">
+                <Button type="submit" onClick={this.props.submitNote} variant="contained" color="primary" className="button">
         Apply
        
         <Icon className="rightIcon"> send</Icon>

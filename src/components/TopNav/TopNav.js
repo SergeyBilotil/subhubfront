@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Main from '../SecondTab/Main';
 import LastItem from '../Lastitem/LastItem';
-import TaskItem from '../FirstTab/TasksItemHead';
+import TaskTable from '../FirstTab/TaskTable';
 
 function TabContainer({ children, dir }) {
     return (
@@ -59,9 +59,9 @@ class TopNav extends Component {
                 textColor="primary"
                 variant="fullWidth"
               >
-                <Tab label="Item One" />
-                <Tab label="Item Two" />
-                <Tab label="Item Three" />
+                <Tab label="Scheduler" />
+                <Tab label="DB Search" />
+                <Tab label="Live Search" />
               </Tabs>
             </AppBar>
             <SwipeableViews
@@ -69,7 +69,7 @@ class TopNav extends Component {
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}
             > 
-              <TabContainer dir={this.state.theme.direction}><TaskItem /></TabContainer>
+              <TabContainer dir={this.state.theme.direction}><TaskTable /></TabContainer>
               <TabContainer dir={this.state.theme.direction}><Main /></TabContainer>
               <TabContainer dir={this.state.theme.direction}><LastItem /></TabContainer>
             </SwipeableViews>

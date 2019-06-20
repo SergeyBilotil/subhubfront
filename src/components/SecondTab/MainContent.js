@@ -11,11 +11,18 @@ class MainContent extends React.Component {
       error: null,
       city: '',
       venue: '',
-      data: []
+      data: [],
+     
+      shouldShowElem: false,
     };
     this.LoadMainData = this.LoadMainData.bind(this);
+    this.submitNote = this.submitNote.bind(this);
   }
-
+  submitNote() {
+    this.setState({
+        shouldShowElem: true,
+    });
+}
   LoadMainData(e) {
    e.preventDefault()
     const setCity = e.target.city.value
@@ -23,20 +30,20 @@ class MainContent extends React.Component {
     const startDate = e.target.startdate.value
     const endDate = e.target.enddate.value
     
-      console.log(setCity, setVenue)
+     
     
      
     
-     fetch(`https://stubhub.dataforest.tech/api/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`)
+     fetch  (`https://stubhub.dataforest.tech/api/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`)
     .then(res => res.json())
     .then(
       (result) => {
         
         this.setState({
           data: result,
-        
+          
         });
-        console.log(result)
+       console.log(result)
       });
  
   }
@@ -49,8 +56,9 @@ class MainContent extends React.Component {
    
     return (
       <div >
-       <MainHeader LoadMainData={this.LoadMainData}/>
-        <ReactTable
+       <MainHeader LoadMainData={this.LoadMainData} submitNote={this.submitNote}/>
+       {this.state.shouldShowElem &&
+        <ReactTable 
           
          
           data={data}
@@ -138,9 +146,11 @@ class MainContent extends React.Component {
           defaultPageSize={10}
           className="-striped -highlight"
         />
+      }
         <br />
-       
+     
       </div>
+      
     );
   }
 }

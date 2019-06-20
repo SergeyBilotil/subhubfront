@@ -1,0 +1,13 @@
+.maein-task {
+    background: lightgrey;
+}
+
+.maein-task  .MuiGrid-grid-xs-8 {
+        max-width: 30px;
+        width: 10%;
+}
+.maein-task ul  li{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

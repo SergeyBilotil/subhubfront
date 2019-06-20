@@ -39,12 +39,12 @@ class MainHeader extends Component {
       });
     
   }
-  
-  componentDidUpdate(prevState ) {
+ 
+   componentDidUpdate(prevState , nextState) {
   
     const cityname = this.state.city
-    if (this.state.city ) {
-    fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
+    if (this.state.city !== nextState.city) {
+    fetch  (`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
     .then(res => res.json())
     .then(
       (items2) => {
@@ -53,7 +53,7 @@ class MainHeader extends Component {
           ListVenues: items2,
         
         });
-        
+       
       });
     }
   }
@@ -130,7 +130,7 @@ class MainHeader extends Component {
           onChange={this.handleChange('city')}
           input={<Input name="city" id="age-native-label-placeholder" />}
         >
-          <option>Change city</option>
+          <option value=""  >All </option>
           {Listcities.map(item => (
                 <option key={item}>
                   {item}
@@ -149,16 +149,16 @@ class MainHeader extends Component {
           onChange={this.handleChangeVenu('venue')}
           input={<Input name="venue" id="age-native-label-placeholder" />}
         >
-          <option>Change venue</option>
+          <option value=""  >All</option>
           {ListVenues.map(item => (
-                <option key={item.name}>
+                <option  key={item.name}>
                   {item.name}
                 </option>
               ))}
         </NativeSelect>
         
       </FormControl>
-      <Button  type="submit" variant="contained" color="primary" className="button">
+      <Button  type="submit" onClick={this.props.submitNote} variant="contained" color="primary" className="button">
         Apply
        
         <Icon className="rightIcon"> send</Icon>

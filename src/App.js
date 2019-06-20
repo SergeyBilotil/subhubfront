@@ -11,13 +11,7 @@ function App() {
   return (
     <div className="app-block">
       
-      <Router>
-                            <div>
-                                <PrivateRoute exact path="/" component={TopNav} />
-                                <Route path="/login" component={LoginPage} />
-                            </div>
-                        </Router>
- 
+    <TopNav />
     </div>
   );
 }

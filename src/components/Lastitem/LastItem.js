@@ -12,10 +12,17 @@ class LastItem extends Component {
       city: '',
       venue: '',
       Listcities: '',
-      data: []
+      data: [],
+      shouldShowElem: false,
     };
     this.LoadData = this.LoadData.bind(this);
+    this.submitNote = this.submitNote.bind(this);
   }
+  submitNote() {
+    this.setState({
+        shouldShowElem: true,
+    });
+}
   LoadData (e) {
     e.preventDefault()
     let Lastchangevenu = e.target.venue.value
@@ -43,7 +50,8 @@ class LastItem extends Component {
     console.log(data)
     return (
       <div>
-        <LastTable  LoadData={this.LoadData}/>
+        <LastTable  LoadData={this.LoadData} submitNote={this.submitNote}/>
+        {this.state.shouldShowElem &&
         <ReactTable 
           data={data}
           
@@ -119,9 +127,11 @@ class LastItem extends Component {
             
             
           ]}
+          minRows = {0}
           defaultPageSize={10}
           className="-striped -highlight"
         />
+        }
         <br />
        
       </div>

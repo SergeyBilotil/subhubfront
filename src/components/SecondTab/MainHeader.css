@@ -27,8 +27,12 @@
 }
 .main-header input, .main-header select {
     color: #fff;
+   
    border-bottom: 2px solid #fff;
    
+}
+.Location {
+    width: 15%;
 }
 .MuiNativeSelect-root {
     margin-left: 10px;
@@ -59,4 +63,3 @@
         min-width: 90%;
     }
   }
-  @media screen and (max-width: 1220px) 
