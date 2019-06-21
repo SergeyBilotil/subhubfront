@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import LastTable from './LastTable';
-
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+import { userService } from '../RegisterPage/_services/user.service'
 
 class LastItem extends Component {
   constructor() {
@@ -26,12 +27,20 @@ class LastItem extends Component {
   LoadData (e) {
     e.preventDefault()
     let Lastchangevenu = e.target.venue.value
+    let liveevent_id = e.target.eventid.value
+    const requestOptions = {
+      headers: authHeader()
+    }
     
-    
-    
-    console.log(Lastchangevenu )
-    fetch(`https://stubhub.dataforest.tech/api/parse?venue=${Lastchangevenu}`)
-    .then(res => res.json())
+    fetch(`https://stubhub.dataforest.tech/api/parse?venue=${Lastchangevenu}&id=${liveevent_id}` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (data) => {
         
@@ -40,6 +49,7 @@ class LastItem extends Component {
         
         });
         
+    
       });
     
   }
@@ -47,7 +57,7 @@ class LastItem extends Component {
   render() {
     const { data } = this.state;
     
-    console.log(data)
+  
     return (
       <div>
         <LastTable  LoadData={this.LoadData} submitNote={this.submitNote}/>
@@ -127,6 +137,7 @@ class LastItem extends Component {
             
             
           ]}
+          showPageJump={false}
           minRows = {0}
           defaultPageSize={10}
           className="-striped -highlight"

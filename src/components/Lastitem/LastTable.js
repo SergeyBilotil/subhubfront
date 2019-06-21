@@ -4,8 +4,12 @@ import Input from '@material-ui/core/Input';
 import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-
+import { userService } from '../RegisterPage/_services/user.service'
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+
+
+
 class LastTable extends Component {
     constructor(props) {
         super(props);
@@ -17,9 +21,19 @@ class LastTable extends Component {
           }
       }
       componentDidMount() {
-  
-        fetch(`https://stubhub.dataforest.tech/api/cities`)
-        .then(res => res.json())
+        const requestOptions = {
+          headers: authHeader()
+        }
+        
+        fetch(`https://stubhub.dataforest.tech/api/cities` , requestOptions) 
+        .then(res => {
+          if (res.status == 401) {
+            userService.refreshToken()
+          } else {
+            return res.json()
+          }
+          
+        })
         .then(
           (items) => {
             
@@ -32,11 +46,20 @@ class LastTable extends Component {
         
       }
       componentDidUpdate(prevState ,nextState ) {
-  
+        const requestOptions = {
+          headers: authHeader()
+        }
         const cityname = this.state.lastvenue
         if (this.state.lastvenue !== nextState.lastvenue) {
-        fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
-        .then(res => res.json())
+        fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}` , requestOptions)
+        .then(res => {
+          if (res.status == 401) {
+            userService.refreshToken()
+          } else {
+            return res.json()
+          }
+          
+        })
         .then(
           (items2) => {
             
@@ -85,7 +108,7 @@ class LastTable extends Component {
         >
           <option value="" >All Cities</option>
           {Listcities.map(item => (
-                <option  >
+                <option key={item} >
                   {item}
                 </option>
               ))}
@@ -100,7 +123,7 @@ class LastTable extends Component {
           onChange={this.handleChangeVenu('venue')}
           input={<Input name="venue" id="age-native-label-placeholder" />}
         >
-          <option>All venue</option>
+          <option value="">All venue</option>
           {ListVenues.map(item => (
                 <option key={item.name}>
                   {item.name}
@@ -110,7 +133,7 @@ class LastTable extends Component {
         
       </FormControl>
                 <FormControl>
-                <label for="first-input">Event ID</label>
+                <label >Event ID</label>
                  <Input
                  name="eventid"
                     placeholder=""

@@ -3,8 +3,12 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import "./MainContent.css"
 import MainHeader from './MainHeader'
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+import { userService } from '../RegisterPage/_services/user.service'
+
 
 class MainContent extends React.Component {
+  
   constructor() {
     super();
     this.state = {
@@ -12,7 +16,7 @@ class MainContent extends React.Component {
       city: '',
       venue: '',
       data: [],
-     
+      
       shouldShowElem: false,
     };
     this.LoadMainData = this.LoadMainData.bind(this);
@@ -23,19 +27,28 @@ class MainContent extends React.Component {
         shouldShowElem: true,
     });
 }
-  LoadMainData(e) {
+  LoadMainData(e,access_token) {
    e.preventDefault()
     const setCity = e.target.city.value
     const setVenue = e.target.venue.value
     const startDate = e.target.startdate.value
     const endDate = e.target.enddate.value
-    
+    const requestOptions = {
+      headers: authHeader()
+    }
      
+
     
-     
     
-     fetch  (`https://stubhub.dataforest.tech/api/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`)
-    .then(res => res.json())
+     fetch  (`https://stubhub.dataforest.tech/api/events?venue=${setVenue}&city=${setCity}&start_date=${startDate}&end_date=${endDate}`, requestOptions )
+     .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (result) => {
         
@@ -43,7 +56,7 @@ class MainContent extends React.Component {
           data: result,
           
         });
-       console.log(result)
+      
       });
  
   }
@@ -57,13 +70,13 @@ class MainContent extends React.Component {
     return (
       <div >
        <MainHeader LoadMainData={this.LoadMainData} submitNote={this.submitNote}/>
-       {this.state.shouldShowElem &&
+       {this.state.shouldShowElem && 
         <ReactTable 
           
          
           data={data}
          
-         
+          showPageJump={false}
           columns={[
             {
              
@@ -141,7 +154,7 @@ class MainContent extends React.Component {
             
             
           ]}
-         
+          showPageJump={false}
           minRows = {0}
           defaultPageSize={10}
           className="-striped -highlight"

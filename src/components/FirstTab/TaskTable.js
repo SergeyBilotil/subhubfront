@@ -4,6 +4,8 @@ import "react-table/react-table.css";
 import TaskForm from './TaskForm'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import "./TaskTable.css"
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+import { userService } from '../RegisterPage/_services/user.service'
 
 class MainContent extends React.Component {
   constructor() {
@@ -12,76 +14,118 @@ class MainContent extends React.Component {
       error: null,
       addtask: '',
       data: [],
-      taskID: ''
-     
+      taskID: '',
+   
     };
     this.AddTask = this.AddTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
    
   }
-
-componentDidMount() {
-  
-  fetch(`https://stubhub.dataforest.tech/api/task_list`)
-  .then(res => res.json())
+  componentDidMount() {
+    const requestOptions = {
+      headers: authHeader()
+    }
+    fetch(`https://stubhub.dataforest.tech/api/task_list` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
   .then(
     (items) => {
       
       this.setState({
         data: items,
-        
+      
       });
       
       
     });
-  
+  }
+  componentDidUpdate(nextState ,prevState) {
+    const requestOptions = {
+      headers: authHeader()
+    }
+  if ( this.state.data !== nextState.data && this.state.data === prevState.data  ) {
+  fetch(`https://stubhub.dataforest.tech/api/task_list` , requestOptions)
+  .then(res => {
+    if (res.status == 401) {
+      userService.refreshToken()
+    } else {
+      return res.json()
+    }
+    
+  })
+  .then(
+    (items) => {
+      
+      this.setState({
+        data: items,
+      
+      });
+      
+      
+    });
+  }
 }
+
+
+
   AddTask(e) {
  
-
-    let setVenue = e.target.venue.value
-   let seteventid = e.target.eventid.value
-    let addingtaskeventId = e.target.eventid.value
-    let addingtaskvenu = ''
-    const frequency = e.target.frequency.value
-    if (setVenue != '') {
-      addingtaskvenu = e.target.venue.value
-      addingtaskeventId = ""
-    } else 
-    {
-      addingtaskeventId = e.target.eventid.value
-      addingtaskvenu = ''
-      
+    e.preventDefault()
+    const requestOptions = {
+      headers: authHeader()
     }
-     
-    console.log(e.target.eventid.value)
-     
-    
-    fetch  (`https://stubhub.dataforest.tech/api/tasks/add?venue=${addingtaskvenu}&event_id=${addingtaskeventId}&frequency=${frequency}`)
-    .then(res => res.json())
+    let addingtaskeventId = e.target.eventid.value
+    let addingtaskvenu = e.target.venue.value
+    const frequency = e.target.frequency.value
+       
+    fetch  (`https://stubhub.dataforest.tech/api/tasks/add?venue=${addingtaskvenu}&event=${addingtaskeventId}&frequency=${frequency}` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (result) => {
         
         this.setState({
           addtask: result,
-          
+         
         });
+        
       });
      
   }
-  
+ 
   deleteTask(value) {
-    this.forceUpdate()
+ 
       const deleteId = value
-    console.log(deleteId)
-    fetch  (`https://stubhub.dataforest.tech/api/tasks/delete?id=${deleteId}`)
-    .then(res => res.json())
+      const requestOptions = {
+        headers: authHeader()
+      }
+    fetch  (`https://stubhub.dataforest.tech/api/tasks/delete?id=${deleteId}` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (result) => {
         
         this.setState({
           deletetask: result,
-          
+        
         });
       
       });
@@ -89,17 +133,18 @@ componentDidMount() {
   }
   
   render() {
-    const { data, taskID } = this.state;
-    
-    
+    const { data } = this.state;
    
+  
+    
     return (
-      <div  className="task-content">
+      
+      <div  className="task-content" >
        <TaskForm AddTask={this.AddTask} />
        
         <ReactTable 
           
-          
+         
           data={data}
          
           columns={[
@@ -131,7 +176,7 @@ componentDidMount() {
                 {
                   Header: "Delete Task", 
                   Cell: props => (
-                    <button name="deletebutton" value={props.original.id}  onClick={() => this.deleteTask(props.original.id) } >
+                    <button name="deletebutton"  value={props.original.id}  onClick={() => this.deleteTask(props.original.id) } >
                     <DeleteForeverOutlinedIcon /></button>
                 )
                 },
@@ -146,7 +191,7 @@ componentDidMount() {
             
             
           ]}
-          
+          showPageJump={false}
           minRows = {0}
           defaultPageSize={10}
           className="-striped -highlight"

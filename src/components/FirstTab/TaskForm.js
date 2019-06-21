@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-
-
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+import { userService } from '../RegisterPage/_services/user.service'
 
 class TaskForm extends Component  {
   constructor(props) {
@@ -19,13 +18,28 @@ class TaskForm extends Component  {
         city: '',
         venue: '',
         name: 'hai',
-      
+       
       }
   }
+ 
+
+ 
   componentDidMount() {
     
-    fetch(`https://stubhub.dataforest.tech/api/cities`)
-    .then(res => res.json())
+    const requestOptions = {
+      headers: authHeader()
+    }
+  
+    fetch(`https://stubhub.dataforest.tech/api/cities` , requestOptions)
+  
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (items) => {
         
@@ -33,17 +47,26 @@ class TaskForm extends Component  {
           Listcities: items,
         
         });
-        
+       
       });
-    
+     
+   
   }
   
-  componentDidUpdate(prevState ) {
-  
+  componentDidUpdate(nextState, prevState) {
+    const requestOptions = {
+      headers: authHeader()
+    }
     const cityname = this.state.city
-    if (this.state.city ) {
-    fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
-    .then(res => res.json())
+    
+    if ( (this.state.city !== prevState.city)  ) {
+      
+     
+    fetch(`https://stubhub.dataforest.tech/api/venues?city=${cityname}` , requestOptions)
+   
+    .then(res =>  res.json())
+   
+ 
     .then(
       (items2) => {
         
@@ -51,7 +74,7 @@ class TaskForm extends Component  {
           ListVenues: items2,
         
         });
-        
+        console.log(items2)
       });
     }
   }

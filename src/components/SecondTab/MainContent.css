@@ -2,3 +2,6 @@
     white-space: pre-wrap;
     text-align: center;
 }
+.ReactTable .rt-noData {
+    display: none
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './LoginPage.css'
 import { userService } from './_services';
 
 class LoginPage extends React.Component {
@@ -50,13 +50,11 @@ class LoginPage extends React.Component {
     render() {
         const { username, password, submitted, loading, error } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <div className="alert alert-info">
-                    Username: test@mail.com<br />
-                    Password: TestPass2019!
-                </div>
-                <h2>Login</h2>
+            <div className="wrapper-login">
+               
+               
                 <form name="form" onSubmit={this.handleSubmit}>
+                <h2>Login</h2>
                     <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
                         <label htmlFor="username">Username</label>
                         <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />

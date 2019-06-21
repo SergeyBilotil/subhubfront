@@ -10,8 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Main from '../SecondTab/Main';
 import LastItem from '../Lastitem/LastItem';
 import TaskTable from '../FirstTab/TaskTable';
-
-function TabContainer({ children, dir }) {
+import { Link } from 'react-router-dom';
+function TabContainer({ children }) {
     return (
       <Typography component="div" >
         {children}
@@ -20,7 +20,7 @@ function TabContainer({ children, dir }) {
   }
   TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
-    dir: PropTypes.string.isRequired,
+   
   };
   
   
@@ -51,6 +51,7 @@ class TopNav extends Component {
         
         return (
             <div className="root">
+              <div className = "logout-button"><Link to="/login">Logout</Link></div>
             <AppBar position="static" color="default">
               <Tabs
                 value={this.state.value}
@@ -69,9 +70,9 @@ class TopNav extends Component {
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}
             > 
-              <TabContainer dir={this.state.theme.direction}><TaskTable /></TabContainer>
-              <TabContainer dir={this.state.theme.direction}><Main /></TabContainer>
-              <TabContainer dir={this.state.theme.direction}><LastItem /></TabContainer>
+              <TabContainer ><TaskTable /></TabContainer>
+              <TabContainer ><Main /></TabContainer>
+              <TabContainer ><LastItem /></TabContainer>
             </SwipeableViews>
           </div>
         );

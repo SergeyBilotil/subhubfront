@@ -13,3 +13,22 @@
 .MuiTabs-flexContainer button {
     color: #f0a9ea;
 }
+.logout-button {
+    background: #410777 ;
+    text-align: right;
+    padding: 10px 5%;
+   
+}
+.logout-button  a {
+    color: #fff;
+    text-decoration: none;
+    background: #4055c9;
+    border-radius: 5px;
+  
+    padding: 4px 5px
+
+}
+.logout-button  a:hover {
+    background: transparent;
+    transition: 0.5s ease;
+}

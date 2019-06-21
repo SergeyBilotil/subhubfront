@@ -37,8 +37,8 @@
 }
 @media screen and (max-width: 1400px) {
     .last-table .wrapper  {
-        width: auto;
+        width: 100%;
        
-        min-width: 90%;
+        min-width: 60%;
     }
   }

@@ -9,10 +9,12 @@ import {LoginPage} from './components/RegisterPage/LoginPage'
 
 function App() {
   return (
-    <div className="app-block">
-      
-    <TopNav />
+    <Router>
+    <div>
+        <PrivateRoute exact path="/" component={TopNav} />
+        <Route path="/login" component={LoginPage} />
     </div>
+</Router>
   );
 }
 

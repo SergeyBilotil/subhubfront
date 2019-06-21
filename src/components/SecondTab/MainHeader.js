@@ -8,6 +8,9 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import { authHeader } from '../RegisterPage/_helpers/auth-header';
+import { userService } from '../RegisterPage/_services/user.service'
+
 
 
 class MainHeader extends Component {
@@ -25,9 +28,18 @@ class MainHeader extends Component {
       }
   }
   componentDidMount() {
-    
-    fetch(`https://stubhub.dataforest.tech/api/cities`)
-    .then(res => res.json())
+    const requestOptions = {
+      headers: authHeader()
+    }
+    fetch(`https://stubhub.dataforest.tech/api/cities` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (items) => {
         
@@ -41,11 +53,20 @@ class MainHeader extends Component {
   }
  
    componentDidUpdate(prevState , nextState) {
-  
+    const requestOptions = {
+      headers: authHeader()
+    }
     const cityname = this.state.city
     if (this.state.city !== nextState.city) {
-    fetch  (`https://stubhub.dataforest.tech/api/venues?city=${cityname}`)
-    .then(res => res.json())
+    fetch  (`https://stubhub.dataforest.tech/api/venues?city=${cityname}` , requestOptions)
+    .then(res => {
+      if (res.status == 401) {
+        userService.refreshToken()
+      } else {
+        return res.json()
+      }
+      
+    })
     .then(
       (items2) => {
         
@@ -58,7 +79,9 @@ class MainHeader extends Component {
     }
   }
   handleDateChange = (FirstselectedDate,SecondselecteDate) => date=> {
-   
+    const requestOptions = {
+      headers: authHeader()
+    }
     this.setState({
       [FirstselectedDate]: date.format( "MM-DD-YYYY"),
       [SecondselecteDate]: date.format( "MM-DD-YYYY")

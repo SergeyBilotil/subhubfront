@@ -1,30 +1,31 @@
 
-import { authHeader } from '../_helpers';
+
 
 export const userService = {
     login,
     logout,
-    getAll
+    refreshToken
 };
 
-function login(username, password) {
+function login(username, password ) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
 
-    return fetch(`https://stubhub.dataforest.tech/login`, requestOptions , { withCredentials: true})
+    return fetch(`https://stubhub.dataforest.tech/api/login`, requestOptions , { withCredentials: true})
         .then(handleResponse)
         .then(user => {
             // login successful if there's a user in the response
             if (user) {
                 // store user details and basic auth credentials in local storage 
                 // to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
+                user.authdata = window.btoa(username + password );
+                localStorage.setItem('access_token', JSON.stringify(user.access_token));
                 localStorage.setItem('user', JSON.stringify(user));
             }
-                console.log(user)
+               
             return user;
         });
 }
@@ -32,16 +33,24 @@ function login(username, password) {
 function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('user');
-     return fetch(`https://stubhub.dataforest.tech/logout`);
+    
 }
 
-function getAll() {
+function refreshToken() {
+    let user = JSON.parse(localStorage.getItem('user'));
     const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
+        method: 'POST',
+        headers: {'Authorization': 'Bearer ' + user.refresh_token }
     };
 
-    return fetch(`https://stubhub.dataforest.tech/refresh`);
+    return fetch(`https://stubhub.dataforest.tech/api/refresh`, requestOptions )
+    .then(res => res.json())
+    .then(
+      (token) => {
+        localStorage.setItem('access_token', JSON.stringify(token.access_token));
+       
+        console.log(localStorage,token.access_token )
+      });
 }
 
 function handleResponse(response) {
