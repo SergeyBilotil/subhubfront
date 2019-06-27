@@ -48,8 +48,8 @@ function refreshToken() {
     .then(
       (token) => {
         localStorage.setItem('access_token', JSON.stringify(token.access_token));
+        window.location.reload()
        
-        console.log(localStorage,token.access_token )
       });
 }
 

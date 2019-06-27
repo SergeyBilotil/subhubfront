@@ -12,15 +12,24 @@
     justify-content: center;
 }
 .wrapper  form {
-    width: auto;
-   
-    min-width: 80%;
-  
+    width: 80%;
     display: flex;
     flex-wrap: wrap;;
     justify-content: space-between;
     align-items: center;
 }
+form .css-2b097c-container{
+    width: 20%;
+    background: transparent;
+    color: #000;
+    margin-top: 10px;
+
+}
+form .css-yk16xz-control {
+    background: transparent;
+    border: none
+}
+
 .MuiIcon-root {
     font-size: 1rem !important;
     margin-left: 5px;
@@ -31,6 +40,7 @@
    border-bottom: 2px solid #fff;
    
 }
+
 .Location {
     width: 15%;
 }
@@ -55,6 +65,47 @@
 }
 .MuiPickersCalendarHeader-iconButton > * > * {
     color: #000;
+}
+.MuiTypography-body1 {
+    min-height: 80vh;
+    
+}
+body .css-yk16xz-control {
+    border-bottom: 2px solid #fff !important;
+    cursor: pointer
+}
+.css-1okebmr-indicatorSeparator {
+    display: none;
+}
+body .css-12jo7m5 {
+    color: #fff;
+    font-size: 92%;
+}
+body .css-1wa3eu0-placeholder {
+    color: #fff
+}
+body .css-1alnv5e {
+    display: none;
+}
+body .css-tj5bde-Svg {
+    color: #fff
+}
+body .css-1rhbuit-multiValue {
+    background-color: transparent;
+    color: #fff;
+}
+body .css-1pahdxg-control {
+    background: transparent;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    
+}
+body .css-19bqh2r  {
+    color: #fff
+}
+body .css-1pahdxg-control  input {
+    color: #fff !important
 }
 @media screen and (max-width: 1400px) {
     .wrapper  form {

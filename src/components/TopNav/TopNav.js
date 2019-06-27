@@ -71,7 +71,7 @@ class TopNav extends Component {
               onChangeIndex={this.handleChangeIndex}
             > 
               <TabContainer ><TaskTable /></TabContainer>
-              <TabContainer ><Main /></TabContainer>
+              <TabContainer ><Main className="main-tab"/></TabContainer>
               <TabContainer ><LastItem /></TabContainer>
             </SwipeableViews>
           </div>
