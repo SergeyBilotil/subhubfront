@@ -4,6 +4,7 @@
     color: #fff;
     display: flex;
     justify-content: center;
+    
     padding: 20px;
 }
 .wrapper {
@@ -36,11 +37,24 @@ form .css-yk16xz-control {
 }
 .main-header input, .main-header select {
     color: #fff;
-   
+   background: transparent;
+   border: none;
    border-bottom: 2px solid #fff;
    
 }
+.main-header  .MuiFormControl-root .input{
+    margin-top: 12px;
+}
+.main-header  .MuiFormControl-root input {
+    padding-bottom: 10px;
+    font-size: 15px;
+}
 
+ .MuiFormControl-root input::placeholder {
+    color: #fff !important;
+    font-size: 15px;
+    padding: 5px;
+}
 .Location {
     width: 15%;
 }
@@ -67,7 +81,7 @@ form .css-yk16xz-control {
     color: #000;
 }
 .MuiTypography-body1 {
-    min-height: 80vh;
+    
     
 }
 body .css-yk16xz-control {
@@ -81,11 +95,42 @@ body .css-12jo7m5 {
     color: #fff;
     font-size: 92%;
 }
+
 body .css-1wa3eu0-placeholder {
     color: #fff
 }
 body .css-1alnv5e {
-    display: none;
+   cursor: pointer
+}
+body .css-1alnv5e:hover {
+        background-color: transparent
+}
+body .css-26l3qy-menu {
+  white-space: nowrap;
+  min-width: 400px;
+  width: auto !important;
+ display: inline-block;
+   flex-direction: column
+
+}
+body .css-26l3qy-menu .psa {
+ 
+  display: inline-block;
+  width: auto !important;
+  min-width: 100%;
+}
+body .css-26l3qy-menu  label {
+    color: #000 !important;
+    width: 100px;
+    
+   
+   
+}
+body .css-26l3qy-menu  input {
+    background-color: transparent !important;
+    border: 1px solid grey;
+    width: 15px;
+    height: 15px;
 }
 body .css-tj5bde-Svg {
     color: #fff
@@ -112,5 +157,23 @@ body .css-1pahdxg-control  input {
         width: 100%;
        
         min-width: 90%;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .city-dropdown {
+        flex-direction: column;
+        width: 100% !important;
+    }
+    .city-dropdown .css-2b097c-container {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        width: 100% !important;
+    }
+    .MuiFormControl-root {
+        width: 100% ;
+       
+    }
+    .MuiButton-containedPrimary {
+        margin-top: 15px !important;
     }
   }

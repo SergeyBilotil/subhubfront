@@ -9,6 +9,7 @@
     display: flex;
     width: 75%;
     min-width: 45%;
+    align-items: center;
     justify-content: space-between;
 }
 .last-table .wrapper .MuiFormControl-root {
@@ -27,6 +28,9 @@
     width: 100%;
    
 }
+.last-table .city-dropdown {
+    width: 50%
+}
 .last-table input, .last-table select {
     color: #fff;
    border-bottom: 2px solid #fff;
@@ -41,4 +45,11 @@
        
         min-width: 60%;
     }
+  }
+  @media screen and (max-width: 500px) { 
+
+    .last-table .wrapper {
+        flex-wrap: wrap
+    }
+
   }

@@ -46,10 +46,12 @@ class MainContent extends React.Component {
     });
   }
   componentDidUpdate(nextState ,prevState) {
+   
+  if ( this.state.data !== nextState.data && this.state.data === prevState.data  ) {
     const requestOptions = {
       headers: authHeader()
     }
-  if ( this.state.data !== nextState.data && this.state.data === prevState.data  ) {
+    
   fetch(`https://stubhub.dataforest.tech/api/task_list` , requestOptions)
   .then(res => {
     if (res.status == 401) {

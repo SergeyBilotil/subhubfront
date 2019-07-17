@@ -5,3 +5,17 @@
 .ReactTable .rt-noData {
     display: none
 }
+.subtable .ReactTable {
+    background: #3d2f95;
+    color: #fff;
+    
+}
+.subtable .ReactTable .rt-thead .rt-th.-cursor-pointer, .subtable .ReactTable .rt-thead .rt-td.-cursor-pointer {
+    border-right: 1px solid #fff;
+    background: #7c1b79;
+    border-bottom: 1px solid #fff;
+}
+.subtable .ReactTable .rt-tbody .rt-td {
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}

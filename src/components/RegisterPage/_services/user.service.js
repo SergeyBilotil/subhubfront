@@ -22,8 +22,8 @@ function login(username, password ) {
                 // store user details and basic auth credentials in local storage 
                 // to keep user logged in between page refreshes
                 user.authdata = window.btoa(username + password );
-                localStorage.setItem('access_token', JSON.stringify(user.access_token));
-                localStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('access_token', JSON.stringify(user.access_token));
+                sessionStorage.setItem('user', JSON.stringify(user));
             }
                
             return user;
@@ -32,25 +32,30 @@ function login(username, password ) {
 
 function logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     
 }
 
 function refreshToken() {
-    let user = JSON.parse(localStorage.getItem('user'));
-    const requestOptions = {
-        method: 'POST',
-        headers: {'Authorization': 'Bearer ' + user.refresh_token }
-    };
-
-    return fetch(`https://stubhub.dataforest.tech/api/refresh`, requestOptions )
-    .then(res => res.json())
-    .then(
-      (token) => {
-        localStorage.setItem('access_token', JSON.stringify(token.access_token));
-        window.location.reload()
-       
-      });
+    
+    let user =  JSON.parse(sessionStorage.getItem('user'));
+   
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Authorization': 'Bearer ' + user.refresh_token }
+        
+        }
+        
+        return fetch(`https://stubhub.dataforest.tech/api/refresh`, requestOptions )
+        .then(res => res.json())
+        .then(
+          (token) => {
+            sessionStorage.setItem('access_token', JSON.stringify(token.access_token));
+            window.location.reload()
+           
+          });
+    
 }
 
 function handleResponse(response) {

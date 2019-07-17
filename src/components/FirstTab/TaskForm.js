@@ -40,9 +40,7 @@ class TaskForm extends Component  {
                     type="number"
                     placeholder="Frequency"
                     className="input"
-                    inputProps={{
-                    'aria-label': 'Description',
-                    }}
+                   
                 />
                 </FormControl>
     <Button  type="submit"  variant="contained" color="primary" className="button">
